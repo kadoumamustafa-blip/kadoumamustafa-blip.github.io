@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mustafa Kadouma — AI & CS Student</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--accent:#7c6ef5;--accent2:#3ecfb2;--card:#12121a;--border:#1e1e2e;--muted:#6b6b8a;--text:#e8e8f0;}
+body{font-family:'Space Grotesk',sans-serif;background:#0a0a0f;color:#e8e8f0;overflow-x:hidden;}
+.grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(124,110,245,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(124,110,245,0.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+.orb{position:fixed;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0;animation:orbFloat 8s ease-in-out infinite;}
+.orb1{width:500px;height:500px;background:rgba(124,110,245,0.13);top:-150px;right:-150px;animation-delay:0s;}
+.orb2{width:350px;height:350px;background:rgba(62,207,178,0.09);bottom:50px;left:-100px;animation-delay:-4s;}
+@keyframes orbFloat{0%,100%{transform:translateY(0px) scale(1);}50%{transform:translateY(-30px) scale(1.05);}}
+#particles{position:fixed;inset:0;pointer-events:none;z-index:0;}
+nav{position:sticky;top:0;z-index:100;padding:1.2rem 2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid rgba(30,30,46,0.8);background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);}
+.logo{font-family:'Fira Code',monospace;font-size:14px;color:var(--accent2);letter-spacing:0.05em;}
+.nav-links{display:flex;gap:0.5rem;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:500;padding:6px 14px;border-radius:20px;transition:all 0.25s;border:0.5px solid transparent;}
+.nav-links a:hover,.nav-links a.active{color:var(--text);background:rgba(124,110,245,0.12);border-color:rgba(124,110,245,0.3);}
+.container{max-width:860px;margin:0 auto;padding:0 2rem;position:relative;z-index:1;}
+.page-section{display:none;animation:fadeSlideIn 0.5s ease forwards;}
+.page-section.active{display:block;}
+@keyframes fadeSlideIn{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+.hero{padding:5rem 0 3rem;}
+.hero-tag{font-family:'Fira Code',monospace;font-size:12px;color:var(--accent2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.2rem;display:flex;align-items:center;gap:8px;opacity:0;animation:fadeSlideIn 0.6s 0.1s ease forwards;}
+.hero-tag::before{content:'';width:20px;height:1px;background:var(--accent2);}
+.hero h1{font-size:clamp(2rem,5vw,3.4rem);font-weight:700;line-height:1.1;letter-spacing:-0.03em;margin-bottom:1.5rem;}
+.hero-name{display:block;overflow:hidden;white-space:nowrap;border-right:3px solid var(--accent2);width:0;animation:typing 1s steps(16,end) 0.4s forwards,blink-caret 0.75s step-end 0.4s 5;}
+.hero-subtitle{display:block;color:var(--muted);font-weight:400;opacity:0;animation:fadeSlideIn 0.6s 1.5s ease forwards;}
+@keyframes typing{from{width:0;}to{width:100%;}}
+@keyframes blink-caret{0%,100%{border-color:var(--accent2);}50%{border-color:transparent;}}
+.hero-desc{font-size:15px;color:var(--muted);line-height:1.75;max-width:540px;margin-bottom:2.5rem;opacity:0;animation:fadeSlideIn 0.6s 1.6s ease forwards;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;opacity:0;animation:fadeSlideIn 0.6s 1.8s ease forwards;}
+.btn-primary{background:var(--accent);color:#fff;border:none;padding:11px 22px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all 0.25s;position:relative;overflow:hidden;}
+.btn-primary::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,0.1);transform:translateX(-100%);transition:transform 0.3s;}
+.btn-primary:hover::after{transform:translateX(0);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(124,110,245,0.35);}
+.btn-secondary{background:transparent;color:var(--text);border:0.5px solid var(--border);padding:11px 22px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all 0.25s;}
+.btn-secondary:hover{border-color:var(--accent2);color:var(--accent2);transform:translateY(-2px);}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:12px;overflow:hidden;margin:3rem 0;}
+.stat{background:var(--card);padding:1.25rem 1.5rem;opacity:0;animation:fadeSlideIn 0.5s ease forwards;}
+.stat:nth-child(1){animation-delay:2s;}.stat:nth-child(2){animation-delay:2.1s;}.stat:nth-child(3){animation-delay:2.2s;}.stat:nth-child(4){animation-delay:2.3s;}
+.stat-num{font-size:1.6rem;font-weight:700;font-family:'Fira Code',monospace;}
+.stat-num span{color:var(--accent);font-size:1rem;}
+.stat-label{font-size:11px;color:var(--muted);margin-top:2px;}
+.section{margin-bottom:3.5rem;}
+.section-header{display:flex;align-items:center;gap:12px;margin-bottom:1.75rem;}
+.section-num{font-family:'Fira Code',monospace;font-size:12px;color:var(--accent);padding:4px 10px;background:rgba(124,110,245,0.1);border-radius:4px;}
+.section-title{font-size:18px;font-weight:500;}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;}
+.skill-card{background:var(--card);border:0.5px solid var(--border);border-radius:10px;padding:1rem 1.25rem;transition:all 0.3s;cursor:default;}
+.skill-card:hover{border-color:rgba(124,110,245,0.5);transform:translateY(-4px);box-shadow:0 12px 32px rgba(124,110,245,0.12);}
+.skill-category{font-size:11px;font-family:'Fira Code',monospace;color:var(--accent2);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;}
+.skill-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.tag{font-size:12px;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,0.04);border:0.5px solid var(--border);color:var(--muted);transition:all 0.2s;}
+.tag:hover{border-color:var(--accent2);color:var(--accent2);}
+.projects-grid{display:grid;gap:12px;}
+.project-card{background:var(--card);border:0.5px solid var(--border);border-radius:12px;padding:1.5rem;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;transition:all 0.3s;cursor:pointer;}
+.project-card:hover{border-color:rgba(124,110,245,0.5);transform:translateX(6px);box-shadow:0 8px 32px rgba(124,110,245,0.1);}
+.project-type{font-size:11px;font-family:'Fira Code',monospace;color:var(--accent2);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;}
+.project-name{font-size:16px;font-weight:500;margin-bottom:6px;}
+.project-desc{font-size:14px;color:var(--muted);line-height:1.6;}
+.project-stack{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
+.project-arrow{color:var(--muted);font-size:20px;margin-top:2px;transition:transform 0.3s,color 0.3s;}
+.project-card:hover .project-arrow{transform:translateX(6px);color:var(--accent2);}
+.certs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;}
+.cert-card{background:var(--card);border:0.5px solid var(--border);border-radius:12px;padding:1.25rem;transition:all 0.3s;position:relative;overflow:hidden;cursor:default;}
+.cert-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;transition:height 0.3s;}
+.cert-card:hover::before{height:3px;}
+.cert-card.microsoft::before{background:linear-gradient(90deg,#00a4ef,#7fba00);}
+.cert-card.aws::before{background:linear-gradient(90deg,#ff9900,#f90);}
+.cert-card.huawei::before{background:linear-gradient(90deg,#cf0a2c,#ff6b6b);}
+.cert-card.hp::before{background:linear-gradient(90deg,#0096d6,#00c8e0);}
+.cert-card.nti::before{background:linear-gradient(90deg,#3ecfb2,#7c6ef5);}
+.cert-card.codealpha::before{background:linear-gradient(90deg,#7c6ef5,#3ecfb2);}
+.cert-card.nvidia::before{background:linear-gradient(90deg,#76b900,#a8e05f);}
+.cert-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,0.3);border-color:rgba(124,110,245,0.3);}
+.cert-issuer{font-size:11px;font-family:'Fira Code',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.cert-dot{width:6px;height:6px;border-radius:50%;background:var(--accent2);animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.8);}}
+.cert-name{font-size:14px;font-weight:500;line-height:1.4;margin-bottom:6px;}
+.cert-date{font-size:12px;color:var(--muted);font-family:'Fira Code',monospace;}
+.about-card{background:var(--card);border:0.5px solid var(--border);border-radius:12px;padding:2rem;display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:start;}
+.avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#fff;flex-shrink:0;}
+.about-name{font-size:20px;font-weight:700;margin-bottom:4px;}
+.about-role{font-size:13px;font-family:'Fira Code',monospace;color:var(--accent2);margin-bottom:12px;}
+.about-bio{font-size:14px;color:var(--muted);line-height:1.75;}
+.contact-row{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;}
+.contact-chip{font-size:12px;padding:6px 14px;border-radius:20px;border:0.5px solid var(--border);color:var(--muted);font-family:'Fira Code',monospace;text-decoration:none;transition:all 0.25s;display:inline-flex;align-items:center;gap:6px;}
+.contact-chip:hover{border-color:var(--accent2);color:var(--accent2);transform:translateY(-2px);}
+footer{border-top:0.5px solid var(--border);padding:2rem 0;text-align:center;margin-top:2rem;}
+.footer-text{font-size:13px;color:var(--muted);font-family:'Fira Code',monospace;}
+.footer-text span{color:var(--accent2);}
+.cursor-blink{display:inline-block;width:2px;height:1em;background:var(--accent2);vertical-align:middle;animation:blink 1s step-end infinite;margin-left:2px;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.5s ease,transform 0.5s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+<div class="grid-bg"></div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<nav>
+  <div class="logo">mustafa.dev<span class="cursor-blink"></span></div>
+  <div class="nav-links">
+    <a href="#" class="active" data-section="home">home</a>
+    <a href="#" data-section="projects">projects</a>
+    <a href="#" data-section="certificates">certificates</a>
+    <a href="#" data-section="about">about</a>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div id="home" class="page-section active">
+<div class="container">
+  <section class="hero">
+    <div class="hero-tag">available for internships · Alexandria University</div>
+    <h1>
+      <span class="hero-name">Mustafa Kadouma</span>
+      <span class="hero-subtitle">AI & Computer Science Student</span>
+    </h1>
+    <p class="hero-desc">Second-year CS student at Alexandria University, specializing in Artificial Intelligence. Passionate about building intelligent systems, backend development, and applying AI to solve real-world problems.</p>
+    <div class="hero-btns">
+      <a href="mailto:kadoumamustafa@gmail.com" class="btn-primary">✉ kadoumamustafa@gmail.com</a>
+      <a href="https://www.linkedin.com/in/mustafa-kadouma-8151a032b" class="btn-secondary">💼 LinkedIn</a>
+    </div>
+  </section>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">2<span>nd</span></div><div class="stat-label">Year · CS</div></div>
+    <div class="stat"><div class="stat-num">AI</div><div class="stat-label">Specialization</div></div>
+    <div class="stat"><div class="stat-num">8<span>+</span></div><div class="stat-label">Certificates</div></div>
+    <div class="stat"><div class="stat-num">6<span>+</span></div><div class="stat-label">Projects</div></div>
+  </div>
+  <section class="section reveal">
+    <div class="section-header">
+      <span class="section-num">skills</span>
+      <h2 class="section-title">Technologies</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-category">AI / ML</div>
+        <div class="skill-tags"><span class="tag">Machine Learning</span><span class="tag">AI Principles</span><span class="tag">Data Analysis</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-category">Backend</div>
+        <div class="skill-tags"><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">REST APIs</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-category">Cloud & Data</div>
+        <div class="skill-tags"><span class="tag">AWS</span><span class="tag">Data Science</span><span class="tag">Networking</span></div>
+      </div>
+    </div>
+  </section>
+</div>
+</div>
+
+<!-- PROJECTS -->
+<div id="projects" class="page-section">
+<div class="container" style="padding-top:3rem;">
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Projects</h2>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <div>
+          <div class="project-type">Backend Development · CodeAlpha</div>
+          <div class="project-name">URL Shortener</div>
+          <div class="project-desc">A simple URL shortener web app built as part of the CodeAlpha Backend Development internship. Allows users to shorten long URLs instantly via a clean Flask interface.</div>
+          <div class="project-stack"><span class="tag">Flask</span><span class="tag">Python</span><span class="tag">Backend</span></div>
+        </div>
+        <div class="project-arrow">→</div>
+      </div>
+      <div class="project-card reveal" style="transition-delay:0.1s;">
+        <div>
+          <div class="project-type">Desktop Application</div>
+          <div class="project-name">Hospital Management System</div>
+          <div class="project-desc">Developed a hospital management system to manage patient records, integrating patient information with a database.</div>
+          <div class="project-stack"><span class="tag">Java</span><span class="tag">SQL</span></div>
+        </div>
+        <div class="project-arrow">→</div>
+      </div>
+      <div class="project-card reveal" style="transition-delay:0.15s;">
+        <div>
+          <div class="project-type">Desktop Application</div>
+          <div class="project-name">School Management System</div>
+          <div class="project-desc">Built a school management system to manage and organize student information.</div>
+          <div class="project-stack"><span class="tag">Java</span></div>
+        </div>
+        <div class="project-arrow">→</div>
+      </div>
+      <div class="project-card reveal" style="transition-delay:0.2s;">
+        <div>
+          <div class="project-type">Data Science</div>
+          <div class="project-name">Data Science Project</div>
+          <div class="project-desc">Cleaned datasets and performed data analysis to extract meaningful insights.</div>
+          <div class="project-stack"><span class="tag">Python</span></div>
+        </div>
+        <div class="project-arrow">→</div>
+      </div>
+      <div class="project-card reveal" style="transition-delay:0.25s;">
+        <div>
+          <div class="project-type">Web Development</div>
+          <div class="project-name">ANU Food Website</div>
+          <div class="project-desc">Developed a food ordering website with a clean, user-friendly interface.</div>
+          <div class="project-stack"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+        </div>
+        <div class="project-arrow">→</div>
+      </div>
+      <div class="project-card reveal" style="transition-delay:0.3s;">
+        <div>
+          <div class="project-type">Web Development</div>
+          <div class="project-name">LOKI Store</div>
+          <div class="project-desc">A full men's fashion e-commerce website featuring a product catalog, shopping cart, checkout flow, user login/register, and bilingual Arabic/English support.</div>
+          <div class="project-stack"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+        </div>
+        <div class="project-arrow">→</div>
+      </div>
+    </div>
+  </section>
+</div>
+</div>
+
+<!-- CERTIFICATES -->
+<div id="certificates" class="page-section">
+<div class="container" style="padding-top:3rem;">
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Certificates</h2>
+    </div>
+    <div class="certs-grid">
+      <div class="cert-card aws reveal"><div class="cert-issuer"><span class="cert-dot"></span>Udacity × AWS</div><div class="cert-name">AWS AI Practitioner Challenge</div><div class="cert-date">April 2026</div></div>
+      <div class="cert-card nti reveal" style="transition-delay:0.05s;"><div class="cert-issuer"><span class="cert-dot"></span>NTI · Ministry of Comms</div><div class="cert-name">AI Ambassadors Program</div><div class="cert-date">2026</div></div>
+      <div class="cert-card huawei reveal" style="transition-delay:0.1s;"><div class="cert-issuer"><span class="cert-dot"></span>Huawei ICT Academy</div><div class="cert-name">Computer Networks V1.0</div><div class="cert-date">March 2026</div></div>
+      <div class="cert-card hp reveal" style="transition-delay:0.15s;"><div class="cert-issuer"><span class="cert-dot"></span>HP LIFE · HP Foundation</div><div class="cert-name">Data Science & Analytics</div><div class="cert-date">October 2025</div></div>
+      <div class="cert-card microsoft reveal" style="transition-delay:0.2s;"><div class="cert-issuer"><span class="cert-dot"></span>Microsoft</div><div class="cert-name">Responsible AI Principles & Practices</div><div class="cert-date">October 2025</div></div>
+      <div class="cert-card microsoft reveal" style="transition-delay:0.25s;"><div class="cert-issuer"><span class="cert-dot"></span>Microsoft</div><div class="cert-name">Introduction to AI Concepts</div><div class="cert-date">October 2025</div></div>
+      <div class="cert-card microsoft reveal" style="transition-delay:0.3s;"><div class="cert-issuer"><span class="cert-dot"></span>Microsoft</div><div class="cert-name">Discover Data Analysis</div><div class="cert-date">November 2025</div></div>
+      <div class="cert-card codealpha reveal" style="transition-delay:0.35s;"><div class="cert-issuer"><span class="cert-dot"></span>CodeAlpha</div><div class="cert-name">Backend Development Internship</div><div class="cert-date">2026</div></div>
+      <div class="cert-card nvidia reveal" style="transition-delay:0.4s;"><div class="cert-issuer"><span class="cert-dot"></span>NVIDIA · Coursera</div><div class="cert-name"><a href="https://www.coursera.org/learn/introduction-to-networking-nvidia/home/welcome" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">Introduction to Networking</a></div><div class="cert-date">2026</div></div>
+    </div>
+  </section>
+</div>
+</div>
+
+<!-- ABOUT -->
+<div id="about" class="page-section">
+<div class="container" style="padding-top:3rem;">
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">About Me</h2>
+    </div>
+    <div class="about-card reveal">
+      <div class="avatar">MK</div>
+      <div>
+        <div class="about-name">Mustafa Mohammed Kadouma</div>
+        <div class="about-role">CS Student · AI Track · Alexandria University</div>
+        <div class="about-bio">I'm a second-year Computer Science student specializing in AI at Alexandria University. I've earned certificates from Microsoft, AWS, Huawei, and HP — and completed a backend development internship at CodeAlpha. I'm passionate about AI, backend systems, and continuous learning. Always looking for new opportunities to grow and contribute.</div>
+        <div class="contact-row">
+          <a href="mailto:kadoumamustafa@gmail.com" class="contact-chip">✉ kadoumamustafa@gmail.com</a>
+          <a href="https://www.linkedin.com/in/mustafa-kadouma-8151a032b" class="contact-chip">💼 LinkedIn</a>
+          <span class="contact-chip">📍 Alexandria, Egypt</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</div>
+
+<footer>
+  <div class="container">
+    <p class="footer-text">built by <span>mustafa kadouma</span> · 2026</p>
+  </div>
+</footer>
+
+<script>
+// PARTICLES
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+const dots = Array.from({length: 60}, () => ({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  r: Math.random() * 1.5 + 0.3,
+  vx: (Math.random() - 0.5) * 0.3,
+  vy: (Math.random() - 0.5) * 0.3,
+  o: Math.random() * 0.4 + 0.1
+}));
+function drawParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  dots.forEach(d => {
+    d.x += d.vx; d.y += d.vy;
+    if (d.x < 0 || d.x > canvas.width) d.vx *= -1;
+    if (d.y < 0 || d.y > canvas.height) d.vy *= -1;
+    ctx.beginPath();
+    ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(124,110,245,${d.o})`;
+    ctx.fill();
+  });
+  dots.forEach((a, i) => dots.slice(i+1).forEach(b => {
+    const dist = Math.hypot(a.x - b.x, a.y - b.y);
+    if (dist < 100) {
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+      ctx.strokeStyle = `rgba(124,110,245,${0.08 * (1 - dist/100)})`;
+      ctx.lineWidth = 0.5;
+      ctx.stroke();
+    }
+  }));
+  requestAnimationFrame(drawParticles);
+}
+drawParticles();
+window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+
+// NAVIGATION
+const links = document.querySelectorAll('.nav-links a');
+const sections = document.querySelectorAll('.page-section');
+links.forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = link.dataset.section;
+    links.forEach(l => l.classList.remove('active'));
+    link.classList.add('active');
+    sections.forEach(s => {
+      s.classList.remove('active');
+      if (s.id === target) {
+        s.classList.add('active');
+        setTimeout(triggerReveal, 50);
+      }
+    });
+  });
+});
+
+// SCROLL REVEAL
+function triggerReveal() {
+  document.querySelectorAll('.page-section.active .reveal').forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), i * 80);
+  });
+}
+setTimeout(triggerReveal, 300);
+</script>
+</body>
+</html>
